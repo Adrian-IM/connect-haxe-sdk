@@ -20,6 +20,9 @@ class Model extends Base {
         final fields = Type.getInstanceFields(Type.getClass(this));
         for (field in fields) {
             if (field != '_footprint') {
+                if(field == 'item'){
+                    trace("PARAMS");
+                }
                 final value = Reflect.field(this, field);
                 if (field != 'fieldClassNames' && value != null) {
                     switch (Type.typeof(value)) {
@@ -28,8 +31,17 @@ class Model extends Base {
                         case TClass(DateTime):
                             Reflect.setField(obj, Inflection.toSnakeCase(field), value.toString());
                         case TClass(class_):
+                            if(field == 'params'){
+                                trace("TCLASS");
+                            }
                             final className = Type.getClassName(class_);
+                            if(field == 'params'){
+                                trace(className);
+                            }
                             if (className.indexOf('connect.util.Collection') == 0) {
+                                if(field == 'params'){
+                                    trace(className);
+                                }
                                 final col = cast(value, Collection<Dynamic>);
                                 final arr = new Array<Dynamic>();
                                 for (elem in col) {
@@ -43,7 +55,13 @@ class Model extends Base {
                                 if (arr.length > 0) {
                                     Reflect.setField(obj, Inflection.toSnakeCase(field), arr);
                                 }
+                                if(field == 'params'){
+                                    trace(obj);
+                                }
                             } else if (className.indexOf('connect.models.') == 0) {
+                                if(field == 'model'){
+                                    trace(className);
+                                }
                                 final model = cast(value, Model).toObject();
                                 if (Reflect.fields(model).length != 0) {
                                     Reflect.setField(obj, Inflection.toSnakeCase(field), model);

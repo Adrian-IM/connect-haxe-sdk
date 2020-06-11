@@ -78,11 +78,11 @@ class Param extends IdModel {
     public var marketplace: Marketplace;
 
 
-    public function new() {
+   /* public function new() {
         super();
         this._setFieldClassNames([
             'valueChoice' => 'String',
             'valueChoices' => 'Choice',
         ]);
-    }
+    }*/
 }

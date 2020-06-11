@@ -14,7 +14,6 @@ import connect.util.Util;
 import haxe.io.BytesInput;
 #end
 
-
 class ApiClientImpl extends Base implements IApiClient {
     public function syncRequest(method: String, url: String, headers: Dictionary, body: String,
             fileArg: String, fileName: String, fileContent: Blob) : Response {
@@ -142,7 +141,6 @@ class ApiClientImpl extends Base implements IApiClient {
                 : 'Error sending ${method} request to "${url}."';
             return new Response(-1, message, xhr.response);
         }
-
         return new Response(xhr.status, xhr.responseText, xhr.response);
     }
 

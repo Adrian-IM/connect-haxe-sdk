@@ -65,4 +65,11 @@ class Item extends IdModel {
         });
         return (params.length > 0) ? params[0] : null;
     }
+
+    public function new() {
+        super();
+        this._setFieldClassNames([
+            'params' => 'Param'
+        ]);
+    }
 }

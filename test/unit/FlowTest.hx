@@ -142,6 +142,14 @@ class FlowTest {
         Assert.isType(flow.getListing(), Listing);
     }
     
+
+    @Test
+    public function testFlowSaveItem() {
+        final flow:SaveItemFlow = new SaveItemFlow();
+            flow._run(request_list);
+            flow._run(request_list);
+    }
+
     private function flowRunner(flow:Flow) {
         try {
             flow._run(request_list);
@@ -151,5 +159,23 @@ class FlowTest {
         } catch (ex:Dynamic) {
             Assert.fail("Process fail");
         }
+    }
+}
+
+
+class SaveItemFlow extends Flow {
+    public function new() {
+        super(null);
+        this.step("test step 1", this.firstStep);
+    }
+
+    public function firstStep(f:Flow):Void {
+            var item  = f.getData('item');
+            trace("RECOVERED ITEM");
+            trace(item);
+            trace("TO SAVE ITEM");
+            trace(f.getAssetRequest().asset.items.get(0));
+            f.setData('item',f.getAssetRequest().asset.items.get(0));
+            this.abort();
     }
 }
